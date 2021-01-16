@@ -4,8 +4,9 @@ from arduino import Arduino
 from guest import Guest
 
 
-def recognize_user(rfid_reader, guests):
+def recognize_user(rfid_reader):
     print("start scanning")
+    guests = Guest.get_guests()
     while True:
         uuid = rfid_reader.get_rfid_value()
         print("received uuid: ", uuid)
@@ -47,9 +48,8 @@ def follow_line(sensors, left_motor, right_motor):
 if __name__ == '__main__':
     arduino = Arduino('ttyUSB0')
 
-    guests = [Guest('Kamil', 'Ptak', 'AD:6F:55:D9')]
     print("scan rfid")
-    arrived_guest = recognize_user(rfid_reader=arduino, guests=guests)
+    arrived_guest = recognize_user(rfid_reader=arduino)
 
     left_motor = MotorDriver(12, 20, 16)
     right_motor = MotorDriver(13, 5, 6)
