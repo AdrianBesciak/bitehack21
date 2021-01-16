@@ -1,11 +1,5 @@
 class Guest:
-    def __init__(self, name, surname, uuid):
-        self.__name = name
-        self.__surname = surname
-        self.__uuid = uuid
-        self.__destination = None
-
-    def __init__(self, name, surname, uuid, destination):
+    def __init__(self, name, surname, uuid, destination=None):
         self.__name = name
         self.__surname = surname
         self.__uuid = uuid
