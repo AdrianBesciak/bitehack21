@@ -18,14 +18,34 @@ def follow_line(sensors, left_motor, right_motor):
     print('Started line following')
     while True:
         line = sensors.get_line_sensors()
-        print(line + 'type: ' + str(type(line)))
-        left_motor.spin(50)
-        right_motor.spin(50)
+        print(line)
+        count = 0
+        for letter in line:
+            count += 1
+        if count > 1:
+            if line[0] == 1:
+                left_motor.stop()
+                right_motor.spin(100)
+            elif line[1] == 1:
+                left_motor.spin(50)
+                right_motor.spin(100)
+            elif line[2] == 1:
+                left_motor.spin(90)
+                right_motor.spin(100)
+            elif line[3] == 1:
+                left_motor.spin(100)
+                right_motor.spin(90)
+            elif line[4] == 1:
+                left_motor.spin(100)
+                right_motor.spin(50)
+            elif line[5] == 1:
+                left_motor.spin(100)
+                right_motor.stop()
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    arduino = Arduino('ttyUSB1')
+    arduino = Arduino('ttyUSB0')
 
     guests = [Guest('Kamil', 'Ptak', 'AD:6F:55:D9')]
     print("scan rfid")
