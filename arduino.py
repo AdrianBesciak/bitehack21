@@ -6,11 +6,11 @@ class Arduino:
     def __init__(self, port_name):
         self.serial = serial.Serial(
             port='/dev/' + port_name,
-            baudrate=9600,
+            baudrate=115200,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS,
-            timeout=1000
+            timeout=1
         )
         if not self.serial.isOpen():
             print("Couldn't open serial port!")
@@ -21,7 +21,7 @@ class Arduino:
         self.serial.close()
 
     def send(self, command):
-        self.serial.write(str.encode(command.__str__() + "\n"))
+        self.serial.write(str.encode(command.__str__()))
 
     def read(self):
         return self.serial.read_until('\n').decode("utf-8")
@@ -32,4 +32,5 @@ class Arduino:
 
     def get_rfid_value(self):
         self.send('RFID')
+        sleep(0.5)
         return self.read()
