@@ -8,6 +8,8 @@ class MotorDriver:
         self.__forward_pin = forward_pin     # IN1 - Forward Drive
         self.__reversed_pin = reversed_pin    # IN2 - Reverse Drive
         GPIO.setmode(GPIO.BCM)
+        GPIO.setup(26, GPIO.OUT)    #standby pin
+        GPIO.output(26, GPIO.HIGH)
         GPIO.setup(self.__pwm_pin, GPIO.OUT)
         GPIO.setup(self.__forward_pin, GPIO.OUT)
         GPIO.setup(self.__reversed_pin, GPIO.OUT)
