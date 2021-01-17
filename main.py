@@ -2,6 +2,7 @@ from motor_driver import MotorDriver
 from time import sleep
 from arduino import Arduino
 from guest import Guest
+from time import time
 
 
 def recognize_user(rfid_reader):
@@ -18,30 +19,41 @@ def recognize_user(rfid_reader):
 def follow_line(sensors, left_motor, right_motor):
     print('Started line following')
     while True:
+        print(time())
         line = sensors.get_line_sensors()
-        print(line)
+        print(time(), line)
         count = 0
         for letter in line:
-            count += 1
-        if count > 1:
-            if line[0] == 1:
-                left_motor.stop()
-                right_motor.spin(100)
-            elif line[1] == 1:
-                left_motor.spin(50)
-                right_motor.spin(100)
-            elif line[2] == 1:
-                left_motor.spin(90)
-                right_motor.spin(100)
-            elif line[3] == 1:
-                left_motor.spin(100)
-                right_motor.spin(90)
-            elif line[4] == 1:
-                left_motor.spin(100)
-                right_motor.spin(50)
-            elif line[5] == 1:
-                left_motor.spin(100)
-                right_motor.stop()
+            if letter == '1':
+                count += 1
+        if len(line) < 6:
+            print('Otrzymano ', len(line), 'znakow od arduino')
+            continue
+        if count == 0 or count > 1:
+            continue
+
+        if line[0] == '1':
+            left_motor.spin(0)
+            right_motor.spin(100)
+
+        elif line[1] == '1':
+            left_motor.spin(40)
+            right_motor.spin(100)
+        elif line[2] == '1':
+            left_motor.spin(80)
+            right_motor.spin(100)
+        elif line[3] == '1':
+            left_motor.spin(100)
+            right_motor.spin(80)
+        elif line[4] == '1':
+            left_motor.spin(100)
+            right_motor.spin(40)
+        elif line[5] == '1':
+            left_motor.spin(100)
+            right_motor.spin(0)
+        else:
+            left_motor.spin(20)
+            right_motor.spin(20)
 
 
 # Press the green button in the gutter to run the script.
@@ -51,22 +63,9 @@ if __name__ == '__main__':
     print("scan rfid")
     arrived_guest = recognize_user(rfid_reader=arduino)
 
-    left_motor = MotorDriver(12, 20, 16)
-    right_motor = MotorDriver(13, 5, 6)
+    left_motor = MotorDriver(13, 5, 6)
+    right_motor = MotorDriver(12, 20, 16)
     follow_line(arduino, left_motor, right_motor)
-    print('start running motor')
-    while True:
-        left_motor.spin(50)
-        right_motor.spin(-100)
-        sleep(2)
-        left_motor.spin(100)
-        right_motor.spin(100)
-        sleep(1)
-        left_motor.spin(0)
-        right_motor.spin(100)
-        sleep(0.5)
-    print('stop running motor')
+
     arduino.close_connection()
-
-
 
