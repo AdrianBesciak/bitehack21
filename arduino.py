@@ -10,7 +10,7 @@ class Arduino:
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS,
-            timeout=1
+            timeout=0.05
         )
         if not self.serial.isOpen():
             print("Couldn't open serial port!")
