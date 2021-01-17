@@ -3,6 +3,7 @@ from time import sleep
 from arduino import Arduino
 from guest import Guest
 from time import time
+import gui
 
 
 def recognize_user(rfid_reader):
@@ -63,14 +64,17 @@ def follow_line(sensors, left_motor, right_motor, doors=2):
         else:
             left_motor.spin(20)
             right_motor.spin(20)
+    gui.message('You have arrived to the destination.')
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     arduino = Arduino('ttyUSB0')
+    gui.init()
 
     print("scan rfid")
     arrived_guest = recognize_user(rfid_reader=arduino)
+    gui.message("Welcome " + arrived_guest.get_long_name() + '\n Please, follow me.')
 
     left_motor = MotorDriver(13, 5, 6)
     right_motor = MotorDriver(12, 20, 16)

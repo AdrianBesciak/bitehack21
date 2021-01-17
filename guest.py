@@ -8,6 +8,9 @@ class Guest:
     def get_uuid(self):
         return self.__uuid
 
+    def get_long_name(self):
+        return self.__name + ' ' + self.__surname
+
     def add_destination(self, destination):
         self.__destination = destination
 
