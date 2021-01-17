@@ -4,14 +4,11 @@
 #define RST_PIN         9          // Configurable, see typical pin layout above
 #define SS_PIN          10         // Configurable, see typical pin layout above
 
-<<<<<<< HEAD
-=======
 #define DIST_TRIG 6
 #define DIST_ECHO 7
 
->>>>>>> 425b0cebfc795fe3ec121dba4e799b94a8e672ca
 #define RFID_TIMEOUT 1000
-#define IR_THRESHOLD 512
+#define IR_THRESHOLD 700
 
 MFRC522 mfrc(SS_PIN, RST_PIN);  // Create MFRC522 instance
 
@@ -25,29 +22,20 @@ void setup() {
   SPI.begin();
   mfrc.PCD_Init();
   delay(5);
-<<<<<<< HEAD
-=======
   pinMode(DIST_TRIG, OUTPUT);
   pinMode(DIST_ECHO, INPUT);
   digitalWrite(DIST_TRIG, LOW);
->>>>>>> 425b0cebfc795fe3ec121dba4e799b94a8e672ca
 }
 
 String s;
 uint8_t uid_buffer[4];
 uint16_t ir_buffer[6];
-<<<<<<< HEAD
-=======
 long distance;
->>>>>>> 425b0cebfc795fe3ec121dba4e799b94a8e672ca
 
 void loop() {
   // put your main code here, to run repeatedly:
   IRUpdate(ir_buffer);
-<<<<<<< HEAD
-=======
-  distance = getDist();
->>>>>>> 425b0cebfc795fe3ec121dba4e799b94a8e672ca
+  //distance = getDist();
   if (Serial.available())
   {
     char c = Serial.read();
@@ -82,14 +70,11 @@ void loop() {
       }
       s = "";
     }
-<<<<<<< HEAD
-=======
     else if (s == String("DIST"))
     {
       Serial.println(distance);
       s = "";
     }
->>>>>>> 425b0cebfc795fe3ec121dba4e799b94a8e672ca
     else if (s.length() >= 4)
       s = "";
   }
@@ -138,8 +123,6 @@ void IRUpdate(uint16_t buffer[6])
   getIRData(buffer);
   processIRData(buffer);
 }
-<<<<<<< HEAD
-=======
 
 
 long getDist()
@@ -151,4 +134,3 @@ long getDist()
   return duration * 0.034 / 2;
 
 }
->>>>>>> 425b0cebfc795fe3ec121dba4e799b94a8e672ca
