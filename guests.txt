@@ -1,2 +1,2 @@
-Jan;Kowalski;AD:6F:55:D9;1
+Jan;Ptakowski;AD:6F:55:D9;1
 Marian;Marcinowski;4D:07:44:D9;2

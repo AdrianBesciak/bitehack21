@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
     left_motor = MotorDriver(13, 5, 6)
     right_motor = MotorDriver(12, 20, 16)
-    follow_line(arduino, left_motor, right_motor)
+    follow_line(arduino, left_motor, right_motor, arrived_guest.get_destination())
 
     arduino.close_connection()
 
