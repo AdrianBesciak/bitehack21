@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ubuntu@192.168.43.141:22" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="pi@192.168.1.32:22">
         <serverdata>
@@ -10,6 +10,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="ubuntu@192.168.43.141:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ubuntu/pycharm_adrian" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

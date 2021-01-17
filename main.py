@@ -16,10 +16,12 @@ def recognize_user(rfid_reader):
                 return guest
 
 
-def follow_line(sensors, left_motor, right_motor):
+def follow_line(sensors, left_motor, right_motor, doors=2):
     print('Started line following')
+
+    last_doors_time = time()
     while True:
-        print(time())
+        #print(time())
         line = sensors.get_line_sensors()
         print(time(), line)
         count = 0
@@ -29,28 +31,35 @@ def follow_line(sensors, left_motor, right_motor):
         if len(line) < 6:
             print('Otrzymano ', len(line), 'znakow od arduino')
             continue
+        if line[4] == '1' and line[5] == '1' and time() - last_doors_time > 3:
+            doors -= 1
+            last_doors_time = time()
+            print('DOORS', doors)
+            if doors == 0:
+                left_motor.spin(100)
+                right_motor.spin(-50)
         if count == 0 or count > 1:
+
             continue
 
         if line[0] == '1':
-            left_motor.spin(0)
+            left_motor.spin(-50)
             right_motor.spin(100)
-
         elif line[1] == '1':
             left_motor.spin(40)
             right_motor.spin(100)
         elif line[2] == '1':
-            left_motor.spin(80)
+            left_motor.spin(90)
             right_motor.spin(100)
         elif line[3] == '1':
             left_motor.spin(100)
-            right_motor.spin(80)
+            right_motor.spin(90)
         elif line[4] == '1':
             left_motor.spin(100)
             right_motor.spin(40)
         elif line[5] == '1':
             left_motor.spin(100)
-            right_motor.spin(0)
+            right_motor.spin(-50)
         else:
             left_motor.spin(20)
             right_motor.spin(20)
